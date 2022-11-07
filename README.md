@@ -1,1 +1,1 @@
-# vue-intermediate
+# Vue 개발
