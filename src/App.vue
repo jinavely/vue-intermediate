@@ -1,15 +1,14 @@
 <template>
     <div id="app">
-        <TodoHeader />
         <router-view></router-view>
     </div>
 </template>
 
 <script>
-import TodoHeader from './components/TodoHeader.vue';
+import '@/assets/scss/_index.scss';
 export default {
     name: 'App',
-    components: { TodoHeader },
+    components: { },
     data: () => ({}),
 };
 </script>
