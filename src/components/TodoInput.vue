@@ -1,29 +1,28 @@
 <template>
-    <div>
-        <div class="inputBox shadow">
-            <input type="text" v-model="newTodoItem" @keyup.enter="addTodo" />
+    <div class="inputBox shadow">
+        <input type="text" v-model="newTodoItem" @keyup.enter="addTodo" />
 
-            <button class="addContainer" @click="addTodo">
-                <i class="fas fa-plus addBtn"></i>
-            </button>
-        </div>
+        <button class="addContainer" @click="addTodo">
+            <i class="fas fa-plus addBtn"></i>
+        </button>
 
-        <div>
-            <button id="show-modal" @click="showModal = true">Show Modal</button>
-            <Modal v-if="showModal" @close="showModal = false">
-                <h3 slot="header">custom header</h3>
-                <div slot="body">sadf</div>
-            </Modal>
-        </div>
+        <Modal v-if="showModal" @close="showModal = false">
+            <template #header>
+                <h3>경고</h3>
+            </template>
+            <template #body>
+                <p>빈 공간입니다. 입력해주세요</p>
+            </template>
+        </Modal>
     </div>
 </template>
 
 <script>
-import Modal from './common/Modal.vue'
+import Modal from '../components/common/Modal.vue'
 
 export default {
     name: 'TodoInput',
-    comments: { Modal },
+    components: { Modal },
     data: () => ({
         newTodoItem: '',
         showModal: false
@@ -31,8 +30,10 @@ export default {
     methods: {
         addTodo() {
             if (this.newTodoItem !== '') {
-                this.$emit('addItem', this.newTodoItem);
+                this.$store.commit('addOneItem', this.newTodoItem.trim())
                 this.cleaInput();
+            } else {
+                this.showModal = !this.showModal;
             }
         },
         cleaInput() {
